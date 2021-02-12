@@ -37,15 +37,16 @@ Additionally, the following resources are deployed in the managed RG:
 | * (VIAcode Data Factory Runtime Troubleshooting Guide) | Workbook             | ADF integration runtime troubleshooting guide                                                                                                                                                                                   |
 | * (VIAcode Azure Data Factory Troubleshooting Guide)   | Workbook             | ADF pipeline failures troubleshooting guide                                                                                                                                                                                     |
 ## Additional Setup
-When the solution is just deployed, the monitoring worker does not have any access to your environment, so it will do nothing. You should provide it with a read permission to your subscription(s) as it is mention in the deployment UI.
-Go to the deployed managed application and open the Parameters and Outputs blade. Copy the value of the monitoring Identity output.  
-< screenshot here >  
-Provide this identity with a Reader role to your subscription ([more info](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/howto-assign-access-portal))
+If you will try to add Data Factory after the solution is just deployed you will get error.
+You should assign role with permissions to read cost (i.e. Reader role) to VIAcode Azure Data Factory Monitor at the scopes of resource groups of Data Factories you want to monitor or at the scope of entire subscription you deployed VIAcode Azure Data Factory Monitor to as it is mentioned in the Data Factories UI.
+If Data Factory you want to monitor is connected to Log Analytics you should also assign role with read permissions over Log Analytics workspace.
+Go to the deployed managed application and open the Application Permissions blade.
+![Application Permissions](Artifacts/ApplicationPermissions.PNG)  
+Add Application Permission with scopes of resource groups of Data Factories you want to monitor and scopes of resource groups of Log Analytics workspaces those Data Factories are connected to or with the scope of entire subscription you deployed VIAcode Azure Data Factory Monitor to.
 
 # Out of the Box Experience
-Once the setup is complete, you can see all available ADF instances on the Data Factories blade in the app UI.  
+Once the setup is complete, you can add Data Factories, see currently monitored Data Factories and delete them on the Data Factories blade in the app UI.  
 ![Data Factories](Artifacts/DataFactories.PNG)  
-When the instance is just discovered its monitoring state is Pending. Once all the monitoring resources for this instance are deployed, the state changes to Enabled.
 The monitoring solution provides a bunch of alert rules for each ADF instance and two troubleshooting guides.
 ## Alert Rules
 | Name                                                                                                 | Frequency  | Time Window | Description                                              |
@@ -75,13 +76,3 @@ When an alert is about an integration runtime overload, it will lead you to the 
 3. If the runtime VM is available, you will see the tile with the VM details.
 4. Depending on the data you see in the metric charts, you may decide to scale up your VM - click the `Resize` link on the tile, or make some other VM setup (e.g. restart it) - click `Overview` link  
 ![Runtime TSG](Artifacts/RuntimeTSG.PNG)
-# Solution Management
-## Disable Monitoring for a Specific Instance
-Out of the box the monitoring worker will enable monitoring for each ADF instance it discovers. You can disable monitoring for a specific instance. To do it:
-1. Open the Data Factories blade in the app UI. 
-2. Select the ADF instance you do not want to monitor
-3. Click `Enable/Disable` button on the top.  
-![Enable/Disable](Artifacts/EnableDisable.PNG) 
-Once you do it, the monitoring state will change di Disabled and all alert rules connected to this instance will be deleted.
-
-If you want to enable the monitoring back, you should select the instance and click again `Enable/Disable` button. The state will change to Pending and then to Enabled in about 5 minutes.
