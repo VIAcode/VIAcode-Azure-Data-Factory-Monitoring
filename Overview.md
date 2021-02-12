@@ -38,7 +38,7 @@ Additionally, the following resources are deployed in the managed RG:
 | * (VIAcode Azure Data Factory Troubleshooting Guide)   | Workbook             | ADF pipeline failures troubleshooting guide                                                                                                                                                                                     |
 ## Additional Setup
 If you will try to add Data Factory after the solution is just deployed you will get error.
-You should assign role with permissions to read cost (i.e. Reader role) to VIAcode Azure Data Factory Monitor at the scopes of resource groups of Data Factories you want to monitor or at the scope of entire subscription you deployed VIAcode Azure Data Factory Monitor to as it is mentioned in the Data Factories UI.
+You should assign role with permissions to read cost (e.g. Reader role) to VIAcode Azure Data Factory Monitor at the scopes of resource groups of Data Factories you want to monitor or at the scope of entire subscription you deployed VIAcode Azure Data Factory Monitor to as it is mentioned in the Data Factories UI.
 If Data Factory you want to monitor is connected to Log Analytics you should also assign role with read permissions over Log Analytics workspace.
 Go to the deployed managed application and open the Application Permissions blade.
 ![Application Permissions](Artifacts/ApplicationPermissions.PNG)  
